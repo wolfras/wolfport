@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WolfrasAI Backend Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .container {
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+        }
+        h1 {
+            margin-top: 0;
+        }
+        button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+            transition: transform 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+        }
+        pre {
+            background: rgba(0,0,0,0.5);
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+        input {
+            width: 70%;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            margin: 10px 0;
+        }
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+        .status.online {
+            background: #4caf50;
+        }
+        .status.offline {
+            background: #f44336;
+        }
+        .question-buttons {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 WolfrasAI Backend Test</h1>
+        <div id="status" class="status">Checking backend...</div>
+        
+        <div>
+            <input type="text" id="questionInput" placeholder="Ask me anything..." value="What is the capital of Rwanda?" size="40">
+            <button onclick="testBackend()">Send Question</button>
+        </div>
+        
+        <div class="question-buttons">
+            <button onclick="askQuestion('What is the capital of Rwanda?')">🇷🇼 Capital of Rwanda</button>
+            <button onclick="askQuestion('Who is mugisha ishaq?')">👨‍💻 Who is wolfras?</button>
+            <button onclick="askQuestion('What projects has wolfras built?')">📁 wolfras's Projects</button>
+            <button onclick="askQuestion('What technologies does wolfras use?')">💻 Technologies</button>
+            <button onclick="askQuestion('Tell me a joke')">😂 Joke</button>
+        </div>
+        
+        <h3>Response:</h3>
+        <pre id="result">Click a button or type a question...</pre>
+    </div>
+
+    <script>
+        // Check backend status on page load
+        async function checkBackend() {
+            const statusDiv = document.getElementById('status');
+            try {
+                const response = await fetch('http://localhost:3001/api/health');
+                if (response.ok) {
+                    statusDiv.innerHTML = '✅ Backend Online';
+                    statusDiv.className = 'status online';
+                } else {
+                    statusDiv.innerHTML = '❌ Backend Error';
+                    statusDiv.className = 'status offline';
+                }
+            } catch (error) {
+                statusDiv.innerHTML = '❌ Backend Offline - Make sure to run: node server.js';
+                statusDiv.className = 'status offline';
+                console.error('Backend check failed:', error);
+            }
+        }
+
+        // Main test function
+        async function testBackend() {
+            const inputField = document.getElementById('questionInput');
+            const question = inputField.value.trim();
+            
+            if (!question) {
+                alert('Please enter a question');
+                return;
+            }
+            
+            await sendQuestion(question);
+        }
+        
+        async function askQuestion(question) {
+            document.getElementById('questionInput').value = question;
+            await sendQuestion(question);
+        }
+        
+        async function sendQuestion(question) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerText = '🤔 Thinking... Sending to WolfrasAI...';
+            
+            try {
+                const response = await fetch('http://localhost:3001/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        messages: [
+                            {
+                                role: 'user',
+                                content: question
+                            }
+                        ]
+                    })
+                });
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`HTTP ${response.status}: ${errorText}`);
+                }
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    resultDiv.innerHTML = `📝 <strong>Your question:</strong> ${question}\n\n🤖 <strong>WolfrasAI:</strong>\n${data.content}`;
+                } else if (data.error) {
+                    resultDiv.innerHTML = `❌ Error: ${data.error}\n\nMake sure your API key is set correctly in the .env file`;
+                } else {
+                    resultDiv.innerHTML = JSON.stringify(data, null, 2);
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `❌ Error: ${error.message}\n\nPossible issues:\n1. Backend not running (run: node server.js)\n2. CORS issues\n3. Invalid API key\n4. Network problem`;
+                console.error('Fetch error:', error);
+            }
+        }
+        
+        // Auto-check backend status when page loads
+        checkBackend();
+        
+        // Allow pressing Enter to submit
+        document.getElementById('questionInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                testBackend();
+            }
+        });
+    </script>
+</body>
+</html>
