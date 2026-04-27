@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <linearGradient id="wolfGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff7e00"/>
+      <stop offset="100%" style="stop-color:#ffcc00"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Flame-like background -->
+  <polygon points="50,10 60,30 55,50 65,65 50,80 35,65 45,50 40,30" fill="url(#wolfGradient)" opacity="0.1"/>
+  
+  <!-- Wolf Head -->
+  <path d="M50,25 L35,45 L42,40 L50,48 L58,40 L65,45" fill="#ff7e00"/>
+  
+  <!-- Ears -->
+  <polygon points="35,45 25,28 42,38" fill="#ffcc00"/>
+  <polygon points="65,45 75,28 58,38" fill="#ffcc00"/>
+  
+  <!-- Eyes -->
+  <rect x="38" y="48" width="8" height="4" rx="2" fill="#ffcc00"/>
+  <rect x="54" y="48" width="8" height="4" rx="2" fill="#ffcc00"/>
+  
+  <!-- Snout -->
+  <path d="M45,58 L55,58 L50,66 Z" fill="#ff7e00"/>
+  
+  <!-- Fire/Flame effects -->
+  <path d="M30,75 Q35,85 40,75" stroke="#ffcc00" stroke-width="1.5" fill="none"/>
+  <path d="M60,75 Q65,85 70,75" stroke="#ffcc00" stroke-width="1.5" fill="none"/>
+  
+  <!-- W letter -->
+  <path d="M35,88 L42,80 L50,88 L58,80 L65,88" stroke="#ff7e00" stroke-width="2" fill="none"/>
+</svg>
