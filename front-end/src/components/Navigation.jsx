@@ -16,7 +16,7 @@ const Navigation = ({ onScrollToSection, onToggleSystemStream }) => {
     <nav className="navbar">
       <div className="nav-container">
         <div className="logo" onClick={() => onScrollToSection('home')}>
-          WolfPort.
+          <span className='wolf'>Wolf</span>Port.
         </div>
         
         <ul className={`nav-links ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
