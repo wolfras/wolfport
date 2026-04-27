@@ -16,7 +16,7 @@ const Chatbot = () => {
     scrollToBottom();
   }, [messages]);
 
-  // API call to your backend
+  // API call to Vercel backend (serverless function)
   const callBackendAPI = async (userMessage, conversationHistory = []) => {
     try {
       // Prepare conversation history for context (last 10 messages)
@@ -28,7 +28,8 @@ const Chatbot = () => {
       // Add current message
       history.push({ role: 'user', content: userMessage });
 
-      const response = await fetch('http://localhost:3001/api/chat', {
+      // Use relative path for Vercel - this will call /api/chat
+      const response = await fetch('/api/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -104,7 +105,7 @@ const Chatbot = () => {
       console.error('AI Error:', error);
       const errorMessage = {
         id: Date.now() + 1,
-        text: "⚠️ I'm having trouble connecting to my AI brain. Please make sure the backend server is running on port 3001.\n\n**Troubleshooting:**\n• Check if backend is running: `npm run server`\n• Verify backend is on http://localhost:3001\n• Check console for errors",
+        text: "⚠️ I'm having trouble connecting to my AI brain. Please make sure the backend is deployed.\n\n**Note:** The API endpoint should be working. If this persists, check the Vercel logs.",
         sender: 'ai',
         timestamp: new Date()
       };
@@ -114,7 +115,7 @@ const Chatbot = () => {
     }
   };
 
-  // Optional: Add typing indicator effect
+  // Typing indicator component
   const TypingIndicator = () => (
     <div className="chat-message ai">
       <strong>WolfrasAI:</strong>

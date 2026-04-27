@@ -6,6 +6,7 @@ import SystemStream from './components/SystemStream.jsx';
 import Chatbot from './components/Chatbot.jsx';
 import HomePage from './pages/Homepage.jsx';
 import AboutPage from './pages/AboutPage.jsx';
+import Footer from './components/Footer.jsx';
 import ProjectsPage from './pages/ProjectsPage.jsx';
 import SkillsPage from './pages/SkillsPage.jsx';
 import TestimonialsPage from './pages/TestimonialsPage.jsx';
@@ -78,6 +79,7 @@ function App() {
         <TestimonialsPage />
         <MessagePage onAddMessage={handleAddMessage} />
         <ContactPage />
+        <Footer />
       </main>
       
       <Chatbot />

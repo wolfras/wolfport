@@ -5,15 +5,15 @@ const TestimonialsPage = () => {
   const testimonials = [
     {
       id: 1,
-      name: 'Alex Johnson',
-      role: 'CEO, TechSphere',
-      text: 'Working with Frank was an absolute pleasure. His ability to translate complex ideas into clean, performant solutions is world-class.'
+      name: 'Elissa Ntihinduka',
+      role: 'Full Stack Developer, TechSolutions',
+      text: 'Working with Wolfras was an absolute pleasure. His ability to translate complex ideas into clean, performant solutions is world-class.'
     },
     {
       id: 2,
-      name: 'Samantha Lee',
+      name: 'Uwimana Yassin',
       role: 'Lead Designer, CreativeFlow',
-      text: "FrankPort's design system and animations brought our brand to life. The attention to detail is unmatched."
+      text: "WolfPort's design system and animations brought our brand to life. The attention to detail is unmatched."
     }
   ];
 

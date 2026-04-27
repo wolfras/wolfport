@@ -23,23 +23,23 @@ export const projects = [
   },
   {
     id: 4,
-    title: '',
-    description: 'Interactive coding simulator that increased developer engagement by 300% for training platforms.',
-    tags: ['HTML5', 'CSS3', 'JavaScript'],
+    title: 'web-blocker',
+    description: 'csharp application that blocks access to specified websites, enhancing productivity and focus by preventing distractions.',
+    tags: ['C#', 'ASP.NET'],
     color: '#43e97b'
   },
   {
     id: 5,
-    title: 'VoltChat',
-    description: 'Enterprise-grade real-time messaging system with Redis-backed performance and encryption-ready architecture.',
-    tags: ['Docker', 'Redis', 'MySQL', 'Node.js', 'Express'],
+    title: 'E-commerce Website',
+    description: 'Full-featured e-commerce platform with user authentication, product management, shopping cart, and secure payment integration.',
+    tags: ['HTML5', 'CSS3', 'JavaScript'],
     color: '#fa709a'
   },
   {
     id: 6,
-    title: 'FrankPort',
+    title: 'WolfPort',
     description: 'High-performance portfolio system with 95+ PageSpeed score and conversion-optimized design.',
-    tags: ['HTML5', 'CSS3', 'JavaScript', 'Node.js', 'Express'],
+    tags: [ 'React.js', 'JavaScript', 'Node.js', 'Express'],
     color: '#fee140'
   }
 ];
