@@ -48,6 +48,16 @@ const Footer = () => {
                   Email
                 </a>
               </li>
+              <li>
+                <a href="https://twitter.com/mugishaishaq" target="_blank" rel="noopener noreferrer">
+                  Twitter
+                </a>
+              </li>
+              <li>
+                <a href="https://instagram.com/isi_haqa" target="_blank" rel="noopener noreferrer">
+                  Instagram
+                </a>
+              </li>
             </ul>
           </div>
 
