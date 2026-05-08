@@ -28,3 +28,5 @@ Thumbs.db
 # Test files (ignore those strange files)
 console.log(data))
 res.json())
+.vercel
+.env*.local
