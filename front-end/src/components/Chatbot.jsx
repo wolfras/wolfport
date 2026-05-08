@@ -17,7 +17,7 @@ const Chatbot = () => {
   }, [messages]);
 
   // API call to Vercel backend (serverless function)
-  const callBackendAPI = async (userMessage, conversationHistory = []) => {
+  const callBackendAPI = async (userMessage, conversationHistory = [], retryCount = 0) => {
     try {
       // Prepare conversation history for context (last 10 messages)
       const history = conversationHistory.slice(-10).map(msg => ({
@@ -56,6 +56,14 @@ const Chatbot = () => {
       return data.content;
     } catch (error) {
       console.error('Backend Error:', error);
+      
+      // Retry once if failed
+      if (retryCount === 0) {
+        console.log('🔄 Retrying request...');
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        return callBackendAPI(userMessage, conversationHistory, 1);
+      }
+      
       throw error;
     }
   };
@@ -66,7 +74,7 @@ const Chatbot = () => {
       setMessages([
         {
           id: Date.now(),
-          text: "👋 Hi! I'm WolfrasAI, your intelligent assistant powered by Gemini AI.\n\nI can answer questions about:\n\n• 📚 Mugisha Isihaqa (wolfras) - Full-Stack Developer\n• 💼 Projects and work experience\n• 💻 Web development technologies\n• 🌍 General knowledge (capitals, history, science)\n• 🎯 And much more!\n\nWhat would you like to know today?",
+          text: "👋 Hi! I'm **WolfrasAI**, your intelligent assistant powered by **Gemini AI**.\n\nI can answer questions about:\n\n• 📚 **Mugisha Isihaqa (wolfras)** - Full-Stack Developer\n• 💼 **Projects** and work experience\n• 💻 **Web development** technologies\n• 🌍 **General knowledge** (capitals, history, science)\n• 📧 **Contact information**\n\nWhat would you like to know today? 🐺",
           sender: 'ai',
           timestamp: new Date()
         }
@@ -105,7 +113,7 @@ const Chatbot = () => {
       console.error('AI Error:', error);
       const errorMessage = {
         id: Date.now() + 1,
-        text: "⚠️ I'm having trouble connecting to my AI brain. Please make sure the backend is deployed.\n\n**Note:** The API endpoint should be working. If this persists, check the Vercel logs.",
+        text: "⚠️ I'm having trouble connecting to my AI brain. Please try again in a moment.\n\nIf this issue persists, you can reach out directly at: **wolfras87@gmail.com**",
         sender: 'ai',
         timestamp: new Date()
       };
@@ -118,11 +126,13 @@ const Chatbot = () => {
   // Typing indicator component
   const TypingIndicator = () => (
     <div className="chat-message ai">
-      <strong>WolfrasAI:</strong>
+      <div className="message-header">
+        <strong>WolfrasAI</strong>
+      </div>
       <div className="typing-indicator">
-        <span>.</span>
-        <span>.</span>
-        <span>.</span>
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
     </div>
   );
@@ -174,7 +184,7 @@ const Chatbot = () => {
           onKeyPress={(e) => e.key === 'Enter' && handleSubmit(e)}
         />
         <button type="submit" disabled={isLoading}>
-          {isLoading ? 'Sending...' : 'Send'}
+          {isLoading ? '...' : 'Send'}
         </button>
       </form>
     </div>

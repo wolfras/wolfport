@@ -30,8 +30,7 @@ export default async function handler(req, res) {
     const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
     
     if (!GEMINI_API_KEY) {
-      console.warn('GEMINI_API_KEY not set, using fallback');
-      // Return a helpful fallback response
+      console.warn('⚠️ GEMINI_API_KEY not set, using fallback');
       return res.json({ 
         success: true, 
         content: getFallbackResponse(userMessage),
@@ -39,7 +38,28 @@ export default async function handler(req, res) {
       });
     }
     
-    const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`;
+    // Updated Gemini API endpoint (using latest model)
+    const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
+    
+    // Enhanced system prompt
+    const systemPrompt = `You are WolfrasAI, a helpful AI assistant for WolfPort, the portfolio of Mugisha Isihaqa (wolfras), a full-stack developer from Rwanda.
+
+About Mugisha Isihaqa (wolfras):
+- Full-Stack Developer specializing in React, Node.js, Express, MongoDB, MySQL
+- Projects: Wolfras AI, Islamic Knowledge Hub, Intruder App, Web Blocker, E-commerce Website, WolfPort
+- Skills: React, Node.js, JavaScript, HTML5, CSS3, Express, MongoDB, MySQL, Git, Docker
+- Location: Rwanda (based in Kigali)
+- Availability: Open for freelance, collaboration, and full-time opportunities
+- Contact: wolfras87@gmail.com, GitHub: github.com/wolfras
+
+Your role:
+- Be friendly, professional, and conversational
+- Provide accurate information about wolfras's work
+- Answer general knowledge questions (capitals, technology, etc.)
+- Keep responses concise but informative (2-3 sentences max)
+- Use emojis occasionally to be engaging
+
+You are integrated into WolfPort (https://wolfport.vercel.app).`;
     
     const response = await fetch(GEMINI_API_URL, {
       method: 'POST',
@@ -49,49 +69,114 @@ export default async function handler(req, res) {
       body: JSON.stringify({
         contents: [{
           parts: [{
-            text: `You are WolfrasAI, a helpful AI assistant for WolfPort, the portfolio of Mugisha Isihaqa (wolfras), a full-stack developer. Answer questions helpfully and conversationally.
-            
-            User question: ${userMessage}`
+            text: `${systemPrompt}\n\nUser: ${userMessage}\n\nWolfrasAI:`
           }]
-        }]
+        }],
+        generationConfig: {
+          temperature: 0.7,
+          maxOutputTokens: 500,
+          topP: 0.8,
+          topK: 40
+        },
+        safetySettings: [
+          {
+            category: "HARM_CATEGORY_HARASSMENT",
+            threshold: "BLOCK_MEDIUM_AND_ABOVE"
+          },
+          {
+            category: "HARM_CATEGORY_HATE_SPEECH",
+            threshold: "BLOCK_MEDIUM_AND_ABOVE"
+          }
+        ]
       })
     });
     
     if (!response.ok) {
       const errorData = await response.json();
-      console.error('Gemini API Error:', errorData);
+      console.error('❌ Gemini API Error:', errorData);
+      
+      // Handle specific error types
+      if (response.status === 429) {
+        return res.json({ 
+          success: true, 
+          content: "⚠️ The AI is currently busy. Please try again in a moment! 🐺",
+          usedGemini: false 
+        });
+      }
+      
+      if (response.status === 403 || response.status === 401) {
+        return res.json({ 
+          success: true, 
+          content: "🔑 API key issue. Please contact wolfras to fix this.",
+          usedGemini: false 
+        });
+      }
+      
       throw new Error(`Gemini API Error: ${response.status}`);
     }
     
     const data = await response.json();
-    const aiResponse = data.candidates[0]?.content?.parts[0]?.text || 'Sorry, I could not generate a response.';
+    let aiResponse = data.candidates[0]?.content?.parts[0]?.text || 'Sorry, I could not generate a response.';
+    
+    // Clean up response if needed
+    aiResponse = aiResponse.replace(/^WolfrasAI:\s*/i, '');
     
     res.json({ success: true, content: aiResponse, usedGemini: true });
   } catch (error) {
-    console.error('AI Error:', error);
+    console.error('❌ AI Error:', error);
     res.status(500).json({ 
       success: false, 
-      content: "I'm having trouble connecting to my AI brain. Please try again later.",
+      content: "I'm having trouble connecting to my AI brain. Please try again later. 🐺",
       error: error.message 
     });
   }
 }
 
-// Fallback responses when Gemini API is not available
+// Enhanced fallback responses when Gemini API is not available
 function getFallbackResponse(question) {
   const q = question.toLowerCase();
   
+  // About wolfras / Mugisha Isihaqa
   if (q.includes('who is') && (q.includes('wolfras') || q.includes('mugisha') || q.includes('isihaqa'))) {
-    return "Mugisha Isihaqa (wolfras) is a passionate Full-Stack Developer who builds real-world web applications, dashboards, and backend systems. He specializes in React, Node.js, Express, and modern web technologies. He created this portfolio and the WolfrasAI assistant you're talking to! 👨‍💻";
+    return "🐺 **Mugisha Isihaqa (wolfras)** is a Full-Stack Developer specializing in React, Node.js, and modern web technologies. Based in Rwanda, he builds real-world web applications and backend systems. He's available for freelance opportunities! 👨‍💻";
   }
   
-  if (q.includes('hello') || q.includes('hi')) {
-    return "Hello there! 👋 I'm WolfrasAI, your intelligent assistant. How can I help you today? You can ask me about Mugisha's work, web development, or general knowledge questions!";
+  // Projects
+  if (q.includes('project') || q.includes('built')) {
+    return "💼 Mugisha has built several impressive projects:\n\n• **Wolfras AI** - AI assistant\n• **Islamic Knowledge Hub** - Content platform\n• **Intruder App** - Security app\n• **Web Blocker** - Distraction blocker\n• **WolfPort** - This portfolio!\n\nWhich one would you like to know more about?";
   }
   
-  if (q.includes('project')) {
-    return "Mugisha has built several impressive projects including WolfPort (this portfolio), AI chatbots, full-stack web applications, and more. What specific type of project would you like to know about?";
+  // Skills / technologies
+  if (q.includes('skill') || q.includes('tech') || q.includes('technology')) {
+    return "🛠️ **Tech Stack:** React, Node.js, JavaScript, HTML5, CSS3, Express, MongoDB, MySQL, Git, Docker. Full-stack development with focus on security and performance! 🚀";
   }
   
-  return "Thanks for your question! I'm WolfrasAI, and I'm here to help. Could you tell me more about what you'd like to know regarding Mugisha's work or web development?";
+  // Contact / hire
+  if (q.includes('contact') || q.includes('hire') || q.includes('available')) {
+    return "📧 You can reach Mugisha at **wolfras87@gmail.com** or visit his GitHub: **github.com/wolfras**. He's open for freelance and full-time opportunities! 🤝";
+  }
+  
+  // Geography
+  if (q.includes('capital of rwanda')) {
+    return "🇷🇼 The capital of Rwanda is **Kigali**. It's known for its cleanliness, safety, and beautiful hills!";
+  }
+  
+  // Greeting
+  if (q.includes('hello') || q.includes('hi') || q.includes('hey')) {
+    return "👋 Hello! I'm **WolfrasAI**, your intelligent assistant. Ask me about Mugisha's work, web development, or general knowledge! What would you like to know? 🐺";
+  }
+  
+  // Thank you
+  if (q.includes('thank')) {
+    return "You're very welcome! 🙏 I'm glad I could help. Feel free to ask more questions anytime! 😊";
+  }
+  
+  // Default response
+  return `🤖 I'm WolfrasAI, assistant for Mugisha Isihaqa (wolfras). I can help with questions about his work, web development, or general knowledge. What would you like to know?
+
+Try asking:
+• "Who is wolfras?"
+• "What projects has he built?"
+• "What technologies does he use?"
+• "How can I contact him?"`;
 }

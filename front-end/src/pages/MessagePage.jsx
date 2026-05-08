@@ -16,7 +16,7 @@ const MessagePage = ({ onAddMessage }) => {
     setStatus({ type: '', text: '' });
 
     try {
-      // Get the backend URL (for production, use your Render URL)
+      // Backend API URL (Nodemailer endpoint)
       const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
       
       const response = await fetch(`${API_URL}/api/contact`, {
@@ -38,7 +38,9 @@ const MessagePage = ({ onAddMessage }) => {
       }
       
       // Add to System Stream
-      onAddMessage({ name, text: message });
+      if (onAddMessage) {
+        onAddMessage({ name, text: message });
+      }
       
       // Clear form
       setName('');
@@ -71,7 +73,7 @@ const MessagePage = ({ onAddMessage }) => {
         <div className="section-header">
           <h2>Leave Your Digital Signature</h2>
           <p>Join visitors who've left their mark on WolfPort</p>
-          <small>Your message will be sent to my email</small>
+          <small>Your message will be sent directly to my email</small>
         </div>
 
         {/* Status Message */}
