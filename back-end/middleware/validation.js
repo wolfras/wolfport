@@ -1,10 +1,9 @@
-// backend/src/middleware/validation.js
+// backend/middleware/validation.js
 const MAX_MESSAGES = 50;
 
-const validateChatRequest = (req, res, next) => {
+export const validateChatRequest = (req, res, next) => {
   const { messages } = req.body;
 
-  // Check if messages exist
   if (!messages || !Array.isArray(messages)) {
     return res.status(400).json({ 
       error: 'Invalid request', 
@@ -12,7 +11,6 @@ const validateChatRequest = (req, res, next) => {
     });
   }
 
-  // Check message limit
   if (messages.length > MAX_MESSAGES) {
     return res.status(400).json({ 
       error: 'Request too large', 
@@ -20,7 +18,6 @@ const validateChatRequest = (req, res, next) => {
     });
   }
 
-  // Validate each message
   for (const msg of messages) {
     if (typeof msg.role !== 'string' || typeof msg.content !== 'string') {
       return res.status(400).json({ 
@@ -32,5 +29,3 @@ const validateChatRequest = (req, res, next) => {
 
   next();
 };
-
-module.exports = { validateChatRequest };

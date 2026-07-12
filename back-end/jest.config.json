@@ -1,0 +1,13 @@
+{
+  "testEnvironment": "node",
+  "transform": {},
+  "moduleFileExtensions": ["js", "mjs"],
+  "testMatch": ["**/*.test.js"],
+  "collectCoverageFrom": [
+    "**/*.js",
+    "!node_modules/**",
+    "!*.test.js"
+  ],
+  "coverageDirectory": "coverage",
+  "verbose": true
+}

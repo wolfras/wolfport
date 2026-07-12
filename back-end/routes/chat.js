@@ -1,21 +1,19 @@
-// backend/src/routes/chat.js
-const express = require('express');
-const { validateChatRequest } = require('../middleware/validation');
-const { getAIResponse } = require('../services/chatService');
+// backend/routes/chat.js
+import express from 'express';
+import { validateChatRequest } from '../middleware/validation.js';
+import { getAIResponse } from '../services/chatService.js';
 
 const router = express.Router();
 
-// Simple in-memory rate limiting
 const requestCounts = new Map();
-const RATE_LIMIT_WINDOW = 60000; // 1 minute
-const RATE_LIMIT_MAX = 30; // 30 requests per minute
+const RATE_LIMIT_WINDOW = 60000;
+const RATE_LIMIT_MAX = 30;
 
 const rateLimiter = (req, res, next) => {
   const ip = req.ip || req.connection.remoteAddress;
   const now = Date.now();
   const userRequests = requestCounts.get(ip) || [];
   
-  // Clean old requests
   const recentRequests = userRequests.filter(time => now - time < RATE_LIMIT_WINDOW);
   
   if (recentRequests.length >= RATE_LIMIT_MAX) {
@@ -30,17 +28,15 @@ const rateLimiter = (req, res, next) => {
   next();
 };
 
-// Chat endpoint
 router.post('/chat', rateLimiter, validateChatRequest, async (req, res) => {
   try {
     const { messages, options = {} } = req.body;
     
-    // Add system prompt about Frank's portfolio
     const enhancedMessages = [
       {
         role: 'system',
-        content: `You are WolfrasAI, a helpful AI assistant integrated into FrankPort, the portfolio website of Frank Nabasa, a full-stack developer. 
-        You help visitors learn about Frank's work, answer technical questions, and provide assistance with web development topics.
+        content: `You are WolfrasAI, a helpful AI assistant integrated into WolfPort, the portfolio website of Mugisha Isihaqa (wolfras), a full-stack developer from Rwanda.
+        You help visitors learn about Mugisha's work, answer technical questions, and provide assistance with web development topics.
         Be friendly, professional, and informative. Keep responses concise but helpful.`
       },
       ...messages
@@ -54,9 +50,8 @@ router.post('/chat', rateLimiter, validateChatRequest, async (req, res) => {
   }
 });
 
-// Health check endpoint
 router.get('/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
-module.exports = router;
+export default router;

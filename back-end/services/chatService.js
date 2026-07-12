@@ -1,7 +1,7 @@
-// backend/src/services/chatService.js
-const deepseek = require('../config/deepseek');
+// backend/services/chatService.js
+import { deepseek } from '../config/deepseek.js';
 
-const getAIResponse = async (messages, options = {}) => {
+export const getAIResponse = async (messages, options = {}) => {
   try {
     const response = await deepseek.chat.completions.create({
       model: process.env.DEEPSEEK_MODEL || 'deepseek-chat',
@@ -29,5 +29,3 @@ const getAIResponse = async (messages, options = {}) => {
     throw new Error('AI service temporarily unavailable. Please try again.');
   }
 };
-
-module.exports = { getAIResponse };
