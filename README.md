@@ -62,7 +62,7 @@ The frontend will be available at `http://localhost:5173` and the backend at `ht
 | Feature | Description |
 |---------|-------------|
 | 🎨 **Custom Theme** | Red/yellow color scheme with dark/light mode toggle |
-| 🤖 **AI Chatbot** | WolfrasAI powered by DeepSeek API |
+| 🤖 **AI Chatbot** | Kevin The Cyber Coder powered by DeepSeek API |
 | 📱 **Responsive Design** | Works perfectly on desktop, tablet, and mobile |
 | 📝 **System Stream** | Visitors can leave messages that appear in real-time |
 | 🚀 **Performance** | Optimized for 95+ PageSpeed score |
@@ -157,4 +157,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-Built with ❤️ by [Mugisha Isihaqa (wolfras)](https://github.com/wolfras)
+Built with ❤️ by [Mukeshimana Kevin (Kevin The Cyber Coder)](https://github.com/wolfras)

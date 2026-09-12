@@ -76,7 +76,7 @@ const Footer = () => {
         <div className="footer-bottom">
           <p>&copy; {currentYear} WolfPort. All rights reserved.</p>
           <p className="footer-credit">
-            Built with React •  Powered by Wolfras AI •  Designed by Wolfras
+            Built with React •  Powered by Kevin The Cyber Coder AI •  Designed by Kevin The Cyber Coder
           </p>
         </div>
       </div>

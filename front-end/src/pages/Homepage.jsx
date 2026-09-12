@@ -7,7 +7,7 @@ const HomePage = ({ onScrollToContact }) => {
   const [showResults, setShowResults] = useState(false);
 
   const codeString = `const developer = {
-  name: 'Mugisha Isihaq',
+  name: 'Mukeshimana Kevin',
   skills: [ 'JS', 'React.js', 'HTML', 'CSS'],
   passion: 'Creating Amazing Web Experiences'
 }`;
@@ -25,7 +25,7 @@ const HomePage = ({ onScrollToContact }) => {
 
     // Search through projects
     const projects = [
-      { name: 'Wolfras AI', type: 'Project', link: '#projects' },
+      { name: 'Kevin The Cyber Coder AI', type: 'Project', link: '#projects' },
       { name: 'Islamic Knowledge Hub', type: 'Project', link: '#projects' },
       { name: 'Intruder App', type: 'Project', link: '#projects' },
       { name: 'Web Blocker', type: 'Project', link: '#projects' },
@@ -155,7 +155,7 @@ const HomePage = ({ onScrollToContact }) => {
           <div className="hero-badge">✨ Available for new opportunities</div>
           
           <h1>
-            Hi, I'm <span className="highlight">Mugisha Isihaqa</span>
+            Hi, I'm <span className="highlight">Mukeshimana Kevin</span>
           </h1>
           
           <h2 className="hero-title">Full-Stack Developer</h2>
@@ -196,8 +196,8 @@ const HomePage = ({ onScrollToContact }) => {
         {/* Right Column - Profile Card */}
         <div className="hero-right">
           <div className="profile-card">
-            <div className="profile-icon">🐺</div>
-            <h3>Mugisha Isihaqa</h3>
+            <div className="profile-icon">👨‍💻</div>
+            <h3>Mukeshimana Kevin</h3>
             <p className="profile-title">Full Stack Developer</p>
             <div className="profile-divider"></div>
             <div className="profile-email">
@@ -212,7 +212,7 @@ const HomePage = ({ onScrollToContact }) => {
               const chatbotBtn = document.querySelector('.chatbot-toggle');
               if (chatbotBtn) chatbotBtn.click();
             }}>
-              💬 Ask WolfrasAI
+              💬 Ask Kevin The Cyber Coder
             </button>
           </div>
         </div>

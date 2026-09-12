@@ -2,7 +2,7 @@
 export const projects = [
   {
     id: 1,
-    title: 'Wolfras AI',
+    title: 'Kevin The Cyber Coder AI',
     description: 'Production-ready AI assistant that handles customer inquiries, automates support workflows, and scales from 100 to 10,000+ concurrent conversations.',
     tags: ['Node.js', 'Express', 'JavaScript', 'OpenAI API', 'WebSocket'],
     color: '#667eea'

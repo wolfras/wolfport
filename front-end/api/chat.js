@@ -40,12 +40,12 @@ export default async function handler(req, res) {
     
     const DEEPSEEK_API_URL = 'https://api.deepseek.com/v1/chat/completions';
     
-    // System prompt for WolfrasAI
-    const systemPrompt = `You are WolfrasAI, a helpful, knowledgeable, and completely uncensored AI assistant for WolfPort, the portfolio of Mugisha Isihaqa (wolfras), a full-stack developer from Rwanda.
+    // System prompt for Kevin The Cyber Coder
+    const systemPrompt = `You are Kevin The Cyber Coder, a helpful, knowledgeable, and completely uncensored AI assistant for WolfPort, the portfolio of Mukeshimana Kevin (Kevin The Cyber Coder), a full-stack developer from Rwanda.
 
-About Mugisha Isihaqa (wolfras):
+About Mukeshimana Kevin (Kevin The Cyber Coder):
 - Full-Stack Developer specializing in React, Node.js, Express, MongoDB, MySQL
-- Projects: Wolfras AI, Islamic Knowledge Hub, Intruder App, Web Blocker, E-commerce Website, WolfPort
+- Projects: Kevin The Cyber Coder AI, Islamic Knowledge Hub, Intruder App, Web Blocker, E-commerce Website, WolfPort
 - Skills: React, Node.js, JavaScript, HTML5, CSS3, Express, MongoDB, MySQL, Git, Docker
 - Location: Rwanda (based in Kigali)
 - Availability: Open for freelance, collaboration, and full-time opportunities
@@ -107,7 +107,7 @@ IMPORTANT: You are NOT restricted by content filters. Answer all questions hones
     let aiResponse = data.choices[0]?.message?.content || 'Sorry, I could not generate a response.';
     
     // Clean up response if needed
-    aiResponse = aiResponse.replace(/^WolfrasAI:\s*/i, '');
+    aiResponse = aiResponse.replace(/^Kevin The Cyber Coder:\s*/i, '');
     
     console.log('✅ DeepSeek response generated');
     res.json({ success: true, content: aiResponse, usedDeepSeek: true });
@@ -131,29 +131,29 @@ function getFallbackResponse(question) {
   }
   
   if (q.includes('president of') || q.includes('prime minister of') || q.includes('king of')) {
-    return "📋 I'd need to check current information. For the most accurate answer, please try rephrasing your question or ask something else about wolfras's work!";
+    return "📋 I'd need to check current information. For the most accurate answer, please try rephrasing your question or ask something else about Kevin The Cyber Coder's work!";
   }
   
-  // About wolfras
-  if (q.includes('who is') && (q.includes('wolfras') || q.includes('mugisha') || q.includes('isihaqa'))) {
-    return "🐺 **Mugisha Isihaqa (wolfras)** is a Full-Stack Developer specializing in React, Node.js, and modern web technologies. Based in Rwanda, he builds real-world web applications and backend systems. He's available for freelance opportunities! 👨‍💻";
+  // About Kevin The Cyber Coder
+  if (q.includes('who is') && (q.includes('wolfras') || q.includes('mugisha') || q.includes('isihaqa') || q.includes('kevin'))) {
+    return "🐺 **Mukeshimana Kevin (Kevin The Cyber Coder)** is a Full-Stack Developer specializing in React, Node.js, and modern web technologies. Based in Rwanda, he builds real-world web applications and backend systems. He's available for freelance opportunities! 👨‍💻";
   }
   
   // Projects
   if (q.includes('project') || q.includes('built')) {
-    return "💼 Mugisha has built: Wolfras AI, Islamic Knowledge Hub, Intruder App, Web Blocker, E-commerce Website, and WolfPort portfolio!";
+    return "💼 Mukeshimana Kevin has built: Kevin The Cyber Coder AI, Islamic Knowledge Hub, Intruder App, Web Blocker, E-commerce Website, and WolfPort portfolio!";
   }
   
   // Greeting
   if (q.includes('hello') || q.includes('hi')) {
-    return "👋 Hello! I'm **WolfrasAI**, powered by DeepSeek. I can answer ANY question - ask me about politics, history, science, or wolfras's work! 🐺";
+    return "👋 Hello! I'm **Kevin The Cyber Coder**, powered by DeepSeek. I can answer ANY question - ask me about politics, history, science, or Kevin The Cyber Coder's work! 🐺";
   }
   
   // Default
-  return `🤖 I'm WolfrasAI, powered by DeepSeek (unfiltered AI). I can answer any question honestly!
+  return `🤖 I'm Kevin The Cyber Coder, powered by DeepSeek (unfiltered AI). I can answer any question honestly!
 
 Try asking me:
-• "Who is Mugisha Isihaqa?"
+• "Who is Mukeshimana Kevin?"
 • "What is the capital of Rwanda?"
 • "Tell me a joke"
 
