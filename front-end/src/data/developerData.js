@@ -1,6 +1,6 @@
 // src/data/developerData.js
 export const developer = {
-  name: 'Mugisha Isihaqa',
+  name: 'Mukeshimana Kevin',
   skills: ['JS', 'React.js', 'HTML', 'CSS', 'Node.js'],
   passion: 'Creating Amazing Web Experiences'
 };
