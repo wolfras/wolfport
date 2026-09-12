@@ -12,7 +12,7 @@ const createTransporter = () => {
   });
 };
 
-// Send email to you (wolfras)
+// Send email to you (Kevin The Cyber Coder)
 export const sendContactEmail = async (name, message, userEmail = null) => {
   try {
     const transporter = createTransporter();
@@ -75,7 +75,7 @@ export const sendAutoReply = async (toEmail, name) => {
     const transporter = createTransporter();
 
     const mailOptions = {
-      from: `"Mugisha Isihaqa" <${process.env.EMAIL_USER}>`,
+      from: `"Mukeshimana Kevin" <${process.env.EMAIL_USER}>`,
       to: toEmail,
       subject: 'Thank you for contacting me!',
       html: `
@@ -85,7 +85,7 @@ export const sendAutoReply = async (toEmail, name) => {
           <p>In the meantime, feel free to check out my projects on <a href="https://github.com/wolfras" style="color: #ff7e00;">GitHub</a>.</p>
           <br>
           <p>Best regards,</p>
-          <p><strong style="color: #ff7e00;">Mugisha Isihaqa (wolfras)</strong></p>
+          <p><strong style="color: #ff7e00;">Mukeshimana Kevin (Kevin The Cyber Coder)</strong></p>
           <p><a href="https://wolfport.vercel.app" style="color: #ff7e00;">wolfport.vercel.app</a></p>
         </div>
       `,
