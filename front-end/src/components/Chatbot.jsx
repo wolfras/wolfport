@@ -74,7 +74,7 @@ const Chatbot = () => {
       setMessages([
         {
           id: Date.now(),
-          text: "👋 Hi! I'm **WolfrasAI**, your intelligent assistant powered by **Gemini AI**.\n\nI can answer questions about:\n\n• 📚 **Mugisha Isihaqa (wolfras)** - Full-Stack Developer\n• 💼 **Projects** and work experience\n• 💻 **Web development** technologies\n• 🌍 **General knowledge** (capitals, history, science)\n• 📧 **Contact information**\n\nWhat would you like to know today? 🐺",
+          text: "👋 Hi! I'm **Kevin The Cyber Coder**, your intelligent assistant powered by **Gemini AI**.\n\nI can answer questions about:\n\n• 📚 **Mukeshimana Kevin (Kevin The Cyber Coder)** - Full-Stack Developer\n• 💼 **Projects** and work experience\n• 💻 **Web development** technologies\n• 🌍 **General knowledge** (capitals, history, science)\n• 📧 **Contact information**\n\nWhat would you like to know today? 🐺",
           sender: 'ai',
           timestamp: new Date()
         }
@@ -127,7 +127,7 @@ const Chatbot = () => {
   const TypingIndicator = () => (
     <div className="chat-message ai">
       <div className="message-header">
-        <strong>WolfrasAI</strong>
+        <strong>Kevin The Cyber Coder</strong>
       </div>
       <div className="typing-indicator">
         <span></span>
@@ -149,7 +149,7 @@ const Chatbot = () => {
     <div className="chatbot">
       <div className="chatbot-header">
         <div>
-          <h4>🤖 WolfrasAI</h4>
+          <h4>🤖 Kevin The Cyber Coder</h4>
           <small>Powered by Gemini AI</small>
         </div>
         <button onClick={() => setIsOpen(false)} className="close-btn">
@@ -161,7 +161,7 @@ const Chatbot = () => {
         {messages.map((msg) => (
           <div key={msg.id} className={`chat-message ${msg.sender}`}>
             <div className="message-header">
-              <strong>{msg.sender === 'user' ? 'You' : 'WolfrasAI'}</strong>
+              <strong>{msg.sender === 'user' ? 'You' : 'Kevin The Cyber Coder'}</strong>
               <small>{msg.timestamp.toLocaleTimeString()}</small>
             </div>
             <p style={{ whiteSpace: 'pre-wrap', lineHeight: '1.5' }}>
@@ -177,7 +177,7 @@ const Chatbot = () => {
       <form onSubmit={handleSubmit} className="chatbot-input">
         <input
           type="text"
-          placeholder="Ask me anything about wolfras or web development..."
+          placeholder="Ask me anything about Kevin The Cyber Coder or web development..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
           disabled={isLoading}
