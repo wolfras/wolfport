@@ -7,7 +7,7 @@ const TestimonialsPage = () => {
       id: 1,
       name: 'Elissa Ntihinduka',
       role: 'Full Stack Developer, TechSolutions',
-      text: 'Working with Wolfras was an absolute pleasure. His ability to translate complex ideas into clean, performant solutions is world-class.'
+      text: 'Working with Kevin The Cyber Coder was an absolute pleasure. His ability to translate complex ideas into clean, performant solutions is world-class.'
     },
     {
       id: 2,
